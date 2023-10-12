@@ -11,13 +11,15 @@
 const http=require('http');
 const DomParser=require('dom-parser');
 const fs=require('fs');
-const serv=require("./lib/serv")
+//const serv=require("./lib/serv");
+const mq=require("./lib/mqttServer")
 
-//*********************************************************************************************** */
+/************************************************************************************************/
+
 var options = {
   host: "172.16.242.33",
   port: "80",
-  path: "/K.htm?ovrideStart=0",
+  path: "/W.htm?ovrideStart=0",
 };
 // Callback function is used to deal with response
 var callback = async function (response) {
@@ -34,7 +36,9 @@ var callback = async function (response) {
         if (err) throw err;
       }
     );
+
     /**************************************************/
+
     fs.readFile("C:/Users/ScriptEr/Documents/CODE/PROJECT/trend/scr/index.html","utf8", function (err, html) {
 
         if (!err) {
@@ -67,5 +71,5 @@ process.on("uncaughtException", function (err) {
   console.log(err);
 });
 0;
-
-serv.webServer();
+//serv.webServer();
+mq.mq(message);

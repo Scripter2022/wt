@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Scripter2022/webtrend#readme",
   "dependencies": {
     "dom-parser": "^0.1.6",
+    "express": "^4.18.2",
     "node-opc-da": "^1.0.7"
   }
 }
