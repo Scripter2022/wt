@@ -15,7 +15,7 @@ const fs=require('fs');
 const mq=require("./lib/mqttServer")
 
 /************************************************************************************************/
-
+function wt(){
 var options = {
   host: "172.16.242.33",
   port: "80",
@@ -29,7 +29,7 @@ var callback = async function (response) {
     body += data;
   });
   response.on("end", async function () {
-    console.log(body);
+    //console.log(body);
     /* create files for parsing */
     /* create file JSON*/
     fs.writeFile("C:/Users/ScriptEr/Documents/CODE/PROJECT/trend/scr/index.html", body,(err) => {
@@ -49,15 +49,17 @@ var callback = async function (response) {
 
           var dom = parser.parseFromString(html);
 
-          var form = dom.getElementsByClassName("data").innerHTML;
+          var form = dom.getElementsByTagName("option value")[0].innerHTML;
 
-          console.log(form);
+          console.log(form)
           
           fs.writeFile("C:/Users/ScriptEr/Documents/CODE/PROJECT/trend/scr/views/home.handlebars", form,  (err) => {
 
             if (err) throw err;
           }
         );
+          form=form.toString();
+          mq.mq(form);
       }
     }
   );
@@ -72,4 +74,6 @@ process.on("uncaughtException", function (err) {
 });
 0;
 //serv.webServer();
-mq.mq(message);
+}
+
+setInterval(wt, 5000);

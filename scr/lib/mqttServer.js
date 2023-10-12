@@ -1,7 +1,7 @@
 const mqtt=require('mqtt');
 const host='broker.emqx.io'
 const port='1883'
-//exports.mq=()=>{
+exports.mq=(form)=>{
 const clientID=`mqtt_${Math.random().toString(16).slice(3)}`
 const connectUrl=`mqtt://${host}:${port}`
 const client=mqtt.connect(connectUrl,{
@@ -13,6 +13,7 @@ const client=mqtt.connect(connectUrl,{
     password:'public',
     reconnectPeriod:1000,
 })
+
 const topic='node/mqtt/status/temper'
 client.on('connect', ()=>{
     console.log("MQTT Connected");
@@ -20,7 +21,7 @@ client.on('connect', ()=>{
 client.subscribe([topic], ()=>{
 
     console.log(`Subscribe to topic' ${topic}`)
-    client.publish(topic, "44" , {
+    client.publish(topic, form , {
         qos:0, retain:false
     },(Error)=>{
         if(Error){
@@ -37,7 +38,7 @@ client.subscribe([topic], ()=>{
     console.log('Received Message:', topic, value.toString())
     console.log(MessageChannel);
   })
-//}
+}
 
 
 
